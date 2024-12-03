@@ -1,10 +1,10 @@
 
 
 const endpoint = 'https://flynn.boolean.careers/exercises/api/random/mail';
-const ul = document.getElementById('mails')
+const ul = document.getElementById('mails');
 const mailNumber = 0;
-const emailList = []
-const btn = document.getElementById('refresh')
+let emailList = [];
+const btn = document.getElementById('refresh');
 
 refresh();
 
@@ -12,6 +12,7 @@ btn.addEventListener('click', refresh)
 
 function refresh () {
   ul.innerHTML = ''
+  emailList = []
 
   function getMail() {
 
@@ -19,8 +20,14 @@ function refresh () {
     .then(response => {
       if (response.data.success){
         const email = response.data.response;      
+        emailList.push(email)
+        if (emailList.length === 10) {
+          for (let mail of emailList) {
+            printMail(mail)
+          }
+        }
+
         
-        printMail(email)      
   
       }  
     
@@ -47,6 +54,8 @@ function refresh () {
   }
     
   randomMail(mailNumber)
+  console.log(emailList);
+  
 }
 
 
