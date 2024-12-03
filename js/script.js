@@ -3,15 +3,16 @@
 const endpoint = 'https://flynn.boolean.careers/exercises/api/random/mail';
 const mailList = [];
 
+randomMail(mailList);
 
 function getMail() {
 
   axios.get(endpoint)
   .then(response => {
-  console.log(response.data);
   if (response.data.success){
-    const email = response.data.response;
-    console.log(email);
+    const emails = response.data.response;
+    console.log(emails);
+    
   }  
   
   })
@@ -23,5 +24,9 @@ function getMail() {
 }
 
 
-
+function randomMail(array) {
+  while (array.length < 10) {
+    array.push(getMail())
+  }
+}
   
