@@ -2,6 +2,7 @@
 
 const endpoint = 'https://flynn.boolean.careers/exercises/api/random/mail';
 const ul = document.getElementById('mails')
+let mail;
 const mailNumber = 0;
 
 
@@ -9,10 +10,11 @@ function getMail() {
 
   axios.get(endpoint)
   .then(response => {
-  if (response.data.success){
-    const email = response.data.response;
-    console.log(email);    
-  }  
+    if (response.data.success){
+      const email = response.data.response;
+      printMail(email)
+
+    }  
   
   })
 
@@ -26,11 +28,14 @@ function randomMail(counter) {
   while (counter < 10) {
     getMail()
     counter++
-    let li = document.createElement('li')
-    ul.append(li)
-    
   }
+  
+}
+
+function printMail (mail) {
+  let li = document.createElement('li')
+  li.innerText = mail
+  ul.append(li)
 }
   
-
 randomMail(mailNumber)
